@@ -1,0 +1,1 @@
+target_sources(hdac_client PRIVATE DebugDetector.cpp SandboxDetector.cpp MemoryScanner.cpp)

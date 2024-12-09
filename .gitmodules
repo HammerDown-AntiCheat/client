@@ -1,0 +1,11 @@
+[submodule "extlibs/lazy_importer"]
+	path = extlibs/lazy_importer
+	url = https://github.com/JustasMasiulis/lazy_importer.git
+
+[submodule "extlibs/xorstr"]
+	path = extlibs/xorstr
+	url = https://github.com/JustasMasiulis/xorstr.git
+
+[submodule "extlibs/code-virtualizer-sdk"]
+	path = extlibs/code-virtualizer-sdk
+	url = https://github.com/orange-cpp/code-virtualizer-sdk.git
