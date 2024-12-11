@@ -2,15 +2,18 @@ cmake_minimum_required(VERSION 3.25)
 include(cmake/vcpkg.cmake)
 
 
+
 project(hdac_client)
 
 set(CMAKE_CXX_STANDARD 26)
 set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
-option(BUILD_AS_DLL "Will build HDAC as dll" OFF)
 
-vcpkg_install_if_not_found(boost-asio boost-beast openssl)
+option(HD_AC_BUILD_AS_DLL "Will build HDAC as dll" ON)
 
-if (BUILD_AS_DLL)
+vcpkg_install_if_not_found(boost-asio boost-beast boost-crc boost-thread openssl nlohmann-json spdlog)
+
+if (HD_AC_BUILD_AS_DLL)
+    message(STATUS "HD:AC building into dll")
     add_library(hdac_client MODULE source/main.cpp)
     target_compile_definitions(hdac_client PRIVATE HDAC_AS_DL)
 else ()
@@ -30,8 +33,13 @@ endif()
 
 find_package(boost_asio REQUIRED CONFIG)
 find_package(boost_beast REQUIRED CONFIG)
+find_package(boost_crc REQUIRED CONFIG)
+find_package(boost_thread REQUIRED CONFIG)
+find_package(OpenSSL REQUIRED)
+find_package(nlohmann_json CONFIG REQUIRED)
+find_package(ZLIB REQUIRED)
 
-target_link_libraries(hdac_client PRIVATE xorstr cv-sdk lazy_importer Boost::asio Boost::beast)
+target_link_libraries(hdac_client PRIVATE xorstr cv-sdk lazy_importer Boost::asio Boost::beast Boost::crc Boost::thread nlohmann_json::nlohmann_json ZLIB::ZLIB)
 
 
 target_compile_definitions(hdac_client PRIVATE WIN32_LEAN_AND_MEAN)

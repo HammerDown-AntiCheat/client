@@ -37,7 +37,7 @@ namespace hdac::modules
         {
             return LI_FN(GetModuleHandleA)(module.c_str());
         });
-        VIRTUALIZER_FALCON_TINY_END
+        VIRTUALIZER_FALCON_TINY_END;
 
         return isInSandbox;
     }
