@@ -10,7 +10,7 @@ set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 
 option(HD_AC_BUILD_AS_DLL "Will build HDAC as dll" ON)
 
-vcpkg_install_if_not_found(boost-asio boost-beast boost-crc boost-thread openssl nlohmann-json spdlog)
+vcpkg_install_if_not_found(boost-asio boost-beast boost-crc boost-thread openssl nlohmann-json zlib)
 
 if (HD_AC_BUILD_AS_DLL)
     message(STATUS "HD:AC building into dll")

@@ -22,18 +22,16 @@
 std::vector<uint8_t> compressData(const std::vector<uint8_t>& data)
 {
     // Estimate the maximum size for compressed data
-    const auto uncompressedData = (size_t) compressBound((uLong) data.size());
+    const auto uncompressedData = static_cast<size_t>(compressBound(static_cast<uLong>(data.size())));
     std::vector<uint8_t> compressedData(uncompressedData);
 
     // Compress the data
-    uLongf comp = (uLongf) compressedData.size();
-    int result = compress(compressedData.data(), &comp, data.data(), (uLong) data.size());
+    auto comp = static_cast<uLongf>(compressedData.size());
+    const int result = compress(compressedData.data(), &comp, data.data(), static_cast<uLong>(data.size()));
     if (result != Z_OK)
-    {
         throw std::runtime_error("Compression failed: " + std::to_string(result));
-    }
 
-    // Resize the compressedData vector to the actual size
+
     compressedData.resize(comp);
     return compressedData;
 }
@@ -92,13 +90,10 @@ namespace hdac::modules
                     }
                 }
 
-                //http::HttpPostRequest(xorstr_("http://localhost/detect"), page);
-
-                static api::ApiService apiService;
-
-                if (const auto detect = apiService.SendPageToAnalysis(compressData(page.GetData())))
-
-                    MessageBox(nullptr, std::format(R"(AC system detected cheat "{}" using {}")", detect->cheatName, detect->method).c_str(), "Hammer Down", MB_OK | MB_ICONERROR);
+                if (const auto detect = m_apiService.SendPageToAnalysis(compressData(page.GetData())))
+                {
+                    std::terminate();
+                }
                 {
                     std::unique_lock lock(m_mutex);
                     m_checkedPages.insert(pageHash);

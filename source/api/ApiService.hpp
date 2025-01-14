@@ -5,7 +5,7 @@
 #include <vector>
 #include <mutex>
 #include <string>
-
+#include <optional>
 namespace hdac::api
 {
 

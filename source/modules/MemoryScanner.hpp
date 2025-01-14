@@ -9,6 +9,7 @@
 #include <cstddef>
 #include <string>
 #include <expected>
+#include <api/ApiService.hpp>
 #include <boost/asio/io_service.hpp>
 
 struct MemoryPage
@@ -51,6 +52,7 @@ namespace hdac::modules
         std::unordered_set<uint32_t> m_checkedPages;
 
         std::shared_mutex m_mutex;
+        api::ApiService m_apiService;
         [[nodiscard]]
         static std::vector<MemoryPage> GetExecutableMemoryRegions();
     };
